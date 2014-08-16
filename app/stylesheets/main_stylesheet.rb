@@ -14,13 +14,14 @@ class MainStylesheet < ApplicationStylesheet
   end
 
   def cell(st)
-    st.frame = {l: 0, t: 0, w: 0, h: 80}
-    st.view.titleLabel.numberOfLines = 0
-    st.view.titleLabel.frame = [[0,0], [40, 80]]
+    st.frame = {h: 80}
+    st.view.titleLabel.numberOfLines = 4
+    st.view.titleLabel.frame = [[5,5], [30, 70]]
     st.view.titleLabel.textAlignment = NSTextAlignmentCenter
-    st.view.titleLabel.adjustsFontSizeToFitWidth = true
+    # This only works with line set to 1 and linbreak off
+    #st.view.titleLabel.adjustsFontSizeToFitWidth = true
     st.view.titleLabel.lineBreakMode = NSLineBreakByWordWrapping
-    st.background_color = rmq.color.from_rgba(0, 0, 0, 0.7)
+    st.background_color = rmq.color.from_rgba(0, 0, 0, 0.8)
   end
 
 end

@@ -23,7 +23,8 @@ class MainController < UIViewController
       "fried chicken",
       "fold out chair",
       "umbrella",
-      "Dog"
+      "Dog",
+      "Tacos"
     ]
 
     # Using a hash for a multidim grid
@@ -35,21 +36,23 @@ class MainController < UIViewController
         GRID_SIZE.times do |cur_column|
           cur_cell = row.append(UIButton, :cell).style do |st|
             width = rmq.device.width / GRID_SIZE - MARGIN
-            st.frame = {l: cur_column * width + (MARGIN * cur_column) + (MARGIN / 2), w: width}
+            st.frame = {l: cur_column * width + (MARGIN * cur_column) + 2, w: width}
             st.text = random_text.sample
+            st.tag("c#{cur_column}r#{cur_row}".to_sym)
+            st.view.titleLabel.frame = [[5,5], [30, 70]]
+            st.view.titleLabel.fit(20)
           end
 
           cur_cell.on(:tap) do |sender|
-            current_value = @grid_hits[[cur_column,cur_row]]
+            @grid_hits[[cur_column,cur_row]] = !@grid_hits[[cur_column,cur_row]]
 
-            if current_value
-              rmq(sender).reapply_styles
-            else
+            if @grid_hits[[cur_column,cur_row]]
               sender.backgroundColor = rmq.color.red
               p "BINGO!" if check_for_bingo
+            else
+              rmq(sender).apply_style :cell
             end
 
-            @grid_hits[[cur_column,cur_row]] = !current_value
           end
         end
       end
