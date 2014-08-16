@@ -34,23 +34,22 @@ class MainController < UIViewController
     GRID_SIZE.times do |cur_row|
       rmq.append(UIView, :row).tap do |row|
         GRID_SIZE.times do |cur_column|
-          cur_cell = row.append(UIButton, :cell).style do |st|
+          cur_cell = row.append(UILabel, :cell).style do |st|
             width = rmq.device.width / GRID_SIZE - MARGIN
             st.frame = {l: cur_column * width + (MARGIN * cur_column) + 2, w: width}
             st.text = random_text.sample
             st.tag("c#{cur_column}r#{cur_row}".to_sym)
-            st.view.titleLabel.frame = [[5,5], [30, 70]]
-            st.view.titleLabel.fit(20)
+            st.view.fit(20)
           end
 
-          cur_cell.on(:tap) do |sender|
+          cur_cell.enable_interaction.on(:tap) do |sender|
             @grid_hits[[cur_column,cur_row]] = !@grid_hits[[cur_column,cur_row]]
 
             if @grid_hits[[cur_column,cur_row]]
-              sender.backgroundColor = rmq.color.red
+              sender.backgroundColor = rmq.color.selected
               p "BINGO!" if check_for_bingo
             else
-              rmq(sender).apply_style :cell
+              sender.backgroundColor = rmq.color.bingo_cell
             end
 
           end
@@ -59,9 +58,6 @@ class MainController < UIViewController
     end
 
     rmq(:row).distribute(:vertical, margin: MARGIN)
-    # rmq(:cell).style do |st|
-    #   st.background_color = rmq.color.random
-    # end
 
   end
 

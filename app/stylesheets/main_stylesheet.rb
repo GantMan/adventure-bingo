@@ -15,13 +15,11 @@ class MainStylesheet < ApplicationStylesheet
 
   def cell(st)
     st.frame = {h: 80}
-    st.view.titleLabel.numberOfLines = 4
-    st.view.titleLabel.frame = [[5,5], [30, 70]]
-    st.view.titleLabel.textAlignment = NSTextAlignmentCenter
-    # This only works with line set to 1 and linbreak off
-    #st.view.titleLabel.adjustsFontSizeToFitWidth = true
-    st.view.titleLabel.lineBreakMode = NSLineBreakByWordWrapping
-    st.background_color = rmq.color.from_rgba(0, 0, 0, 0.8)
+    st.view.numberOfLines = 4
+    st.view.frame = [[5,5], [30, 70]]
+    st.view.textAlignment = NSTextAlignmentCenter
+    st.view.lineBreakMode = NSLineBreakByWordWrapping
+    st.background_color = rmq.color.bingo_cell
   end
 
 end
