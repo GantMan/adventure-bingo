@@ -1,5 +1,6 @@
 class MainController < UIViewController
   GRID_SIZE = 5
+  MARGIN = 5
 
   def viewDidLoad
     super
@@ -33,33 +34,36 @@ class MainController < UIViewController
       rmq.append(UIView, :row).tap do |row|
         GRID_SIZE.times do |cur_column|
           cur_cell = row.append(UIButton, :cell).style do |st|
-            width = rmq.device.width / GRID_SIZE
-            st.frame = {l: cur_column * width, w: width}
+            width = rmq.device.width / GRID_SIZE - MARGIN
+            st.frame = {l: cur_column * width + (MARGIN * cur_column) + (MARGIN / 2), w: width}
             st.text = random_text.sample
-            st.tag(r: cur_row)
-            st.tag(c: cur_column)
           end
 
           cur_cell.on(:tap) do |sender|
-            p "c#{cur_column}r#{cur_row}"
-            @grid_hits[[cur_column,cur_row]] = true
-            $junk = @grid_hits
-            sender.backgroundColor = rmq.color.red
-            p "BINGO!" if check_for_bingo
+            current_value = @grid_hits[[cur_column,cur_row]]
+
+            if current_value
+              rmq(sender).reapply_styles
+            else
+              sender.backgroundColor = rmq.color.red
+              p "BINGO!" if check_for_bingo
+            end
+
+            @grid_hits[[cur_column,cur_row]] = !current_value
           end
         end
       end
     end
 
-    rmq(:row).distribute(:vertical, margin: 5)
-    rmq(:cell).style do |st|
-      st.background_color = rmq.color.random
-    end
+    rmq(:row).distribute(:vertical, margin: MARGIN)
+    # rmq(:cell).style do |st|
+    #   st.background_color = rmq.color.random
+    # end
 
   end
 
   def init_nav
-    self.title = 'Title Here'
+    self.title = 'Bingo Game'
 
     self.navigationItem.tap do |nav|
       nav.leftBarButtonItem = UIBarButtonItem.alloc.initWithBarButtonSystemItem(UIBarButtonSystemItemAction,

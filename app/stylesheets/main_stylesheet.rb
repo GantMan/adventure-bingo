@@ -6,7 +6,7 @@ class MainStylesheet < ApplicationStylesheet
   end
 
   def root_view(st)
-    st.background_color = color.white
+    st.background_image = rmq.image.resource("boat")
   end
 
   def row(st)
@@ -20,6 +20,7 @@ class MainStylesheet < ApplicationStylesheet
     st.view.titleLabel.textAlignment = NSTextAlignmentCenter
     st.view.titleLabel.adjustsFontSizeToFitWidth = true
     st.view.titleLabel.lineBreakMode = NSLineBreakByWordWrapping
+    st.background_color = rmq.color.from_rgba(0, 0, 0, 0.7)
   end
 
 end
