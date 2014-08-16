@@ -14,10 +14,9 @@ class MainStylesheet < ApplicationStylesheet
   end
 
   def cell(st)
-    st.frame = {h: 80}
-    st.view.numberOfLines = 4
-    st.view.frame = [[5,5], [30, 70]]
-    st.view.textAlignment = NSTextAlignmentCenter
+    st.number_of_lines = 4
+    st.frame = [[0,0], [30, 80]]
+    st.text_alignment = NSTextAlignmentCenter
     st.view.lineBreakMode = NSLineBreakByWordWrapping
     st.background_color = rmq.color.bingo_cell
   end
