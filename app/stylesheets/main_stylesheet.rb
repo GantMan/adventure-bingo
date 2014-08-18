@@ -19,6 +19,8 @@ class MainStylesheet < ApplicationStylesheet
     st.text_alignment = NSTextAlignmentCenter
     st.view.lineBreakMode = NSLineBreakByWordWrapping
     st.background_color = rmq.color.bingo_cell
+    st.masks_to_bounds = true
+    st.corner_radius = 5
   end
 
 end
